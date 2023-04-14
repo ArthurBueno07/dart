@@ -48,10 +48,10 @@ void main() {
        //casting
       double x = double.parse(stdin.readLineSync()!);
 
-      num resul = sin(x);
+      num resultado = sin(x);
       print('');
 
-      print(resul);
+      print(resultado);
 
       break;
 
@@ -60,10 +60,10 @@ void main() {
 
       double x = double.parse(stdin.readLineSync()!);
 
-      num resul = cos(x);
+      num resultado = cos(x);
       print('');
 
-      print(resul);
+      print(resultado);
 
       break;
 
@@ -72,10 +72,10 @@ void main() {
 
       double x = double.parse(stdin.readLineSync()!);
 
-      num resul = tan(x);
+      num resultado = tan(x);
       print('');
 
-      print(resul);
+      print(resultado);
 
       break;
 
@@ -84,10 +84,10 @@ void main() {
 
       double x = double.parse(stdin.readLineSync()!);
 
-      num resul = log(x);
+      num resultado = log(x);
       print('');
 
-      print(resul);
+      print(resultado);
 
       break;
 
@@ -100,9 +100,9 @@ void main() {
 
       double y = double.parse(stdin.readLineSync()!);
 
-      num resul = max(x, y);
+      num resultado = max(x, y);
 print(''); 
-      print(resul);
+      print(resultado);
 
       break;
 
@@ -115,9 +115,9 @@ print('');
 
       double y = double.parse(stdin.readLineSync()!);
 
-      num resul = min(x, y);
+      num resultado = min(x, y);
       print('');
-      print(resul);
+      print(resultado);
 
       break;
   }
