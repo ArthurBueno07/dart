@@ -159,25 +159,24 @@ void main() {
 
       switch (letra) {
         case 'a':
-        print('É uma vogal')
-        break;
+          print('É uma vogal');
+          break;
 
         case 'e':
-        print('É uma vogal')
-        break;
+          print('É uma vogal');
+          break;
 
         case 'i':
-        print('É uma vogal')
-        break;
+          print('É uma vogal');
+          break;
 
         case 'o':
-        print('É uma vogal')
-        break;
+          print('É uma vogal');
+          break;
 
         case 'u':
-        print('É uma vogal')
-        break;
-        
+          print('É uma vogal');
+          break;
       }
   }
 }
