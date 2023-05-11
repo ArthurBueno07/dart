@@ -25,8 +25,7 @@ void main() {
     print('5 - Remover item');
     print('6 - Sair');
 
-    int opcao = int.parse(stdin
-        .readLineSync()!); // Lê a entrada do usuário e converte para um inteiro.
+    int opcao = int.parse(stdin.readLineSync()!); // Lê a entrada do usuário e converte para um inteiro.
 
     // Inicia um switch para receber a opção desejada
     switch (opcao) {
@@ -66,6 +65,7 @@ void main() {
         String nome = stdin.readLineSync()!;
         Map.fromEntries(itens.entries.where((element) => element.key == nome));
         if (itens.containsKey(nome)) {
+          
           for (var entrada in itens.entries) {
             print('-' * 70);
             print('${entrada.key}: ${entrada.value}');

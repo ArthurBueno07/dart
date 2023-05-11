@@ -1,77 +1,168 @@
 import 'dart:io';
 
-agendaTelefone(nome, numero) {
-  print('-' * 70);
+Map<String, dynamic> cadastros = {};
+
+// Função void
+cadastro(nome, cpf, telefone) {
+  cadastros[nome] = {
+    'CPF': cpf,
+    'Telefone': telefone,
+  };
+
+  print('');
   print('Nome: $nome');
   print('=' * 70);
-  print('Número: $numero');
-  print('-' * 70);
+  print('CPF: $cpf');
+  print('=' * 70);
+  print('Telefone: $telefone');
+  print('=' * 70);
+  print('Você foi cadastrado!');
   print('');
-  print('.' * 70);
-  print('Telefone adicionado com sucesso! ');
-  print('.' * 70);
+}
+
+// Função retorno
+dynamic remover(dados, Map cadastros) {
+  stdout.write('Qual usuário você deseja remover: ');
+  dynamic nome_remove = stdin.readLineSync()!;
+
+  cadastros.remove(nome_remove);
+
+  print('=' * 70);
+  print('Cadastro atualizado');
+  print('=' * 70);
+
+  return dados;
+}
+
+// Função com Parametro
+consultarNome(Map<String, dynamic> cadastros, {String? nome_consultar}) {
+  if (nome_consultar == null) {
+    print('');
+    stdout.write('Digite o nome do usuário que deseja buscar: ');
+    print('');
+    nome_consultar = stdin.readLineSync();
+  }
+
+  if (cadastros.containsKey(nome_consultar)) {
+    return cadastros[nome_consultar];
+  } else {
+    return null;
+  }
+}
+
+//Função anonima
+contaUsuario() {
+  if (cadastros.isEmpty) {
+    print('Nenhum aluno cadastrado!');
+  } else {
+    print('\nDados cadastrados de todos os alunos:');
+    int quantidade = 0;
+    cadastros.forEach((chave, valor) {
+      quantidade += 1;
+      print('$quantidade - $chave: $valor');
+    });
+    print('');
+    print('Quantidade total de alunos cadastrados: $quantidade');
+    print('');
+  }
 }
 
 void main() {
-  String? nome;
-  int numero;
-
-  Map<String, int> agenda = {};
-
+  var dados;
   bool sair = false;
 
   while (!sair) {
-    print('');
     print('''
-    1 -  Para adicionar um número
-    2 - Para remover
-    3 - Para exibir agenda
-    4 - Para sair
-''');
+    1 - Para cadastrar usuário
+    2 - Para exibir todos os cadastrados
+    3 - Remover cadastro
+    4 - Buscar usuario
+    0 - Sair do programa
+    ''');
 
+    stdout.write('Escolha uma opção: ');
+    print('');
     int opcao = int.parse(stdin.readLineSync()!);
 
     switch (opcao) {
       case 1:
-        stdout.write('Digite o nome: ');
-        nome = (stdin.readLineSync()!);
+        stdout.write('Digite seu nome: ');
+        String nome = stdin.readLineSync()!;
 
-        stdout.write('Digite o número: ');
-        numero = int.parse(stdin.readLineSync()!);
+        stdout.write('Digite seu CPF: ');
+        int cpf = int.parse(stdin.readLineSync()!);
 
-        agenda.putIfAbsent(nome, () => numero);
+        stdout.write('Digite seu telefone: ');
+        int telefone = int.parse(stdin.readLineSync()!);
 
-        print('Nome adicionado com sucesso ');
+        cadastro(nome, cpf, telefone);
 
         break;
 
       case 2:
-        stdout.write('Qual nome deseja remover: ');
-        nome = (stdin.readLineSync()!);
+        for (var cadastro in cadastros.entries) {
+          print('${cadastro.key}: ${cadastro.value}');
+          print('-' * 70);
+        }
 
-        agenda.remove(nome);
-
-        print('Removido com sucesso! ');
+        contaUsuario();
 
         break;
 
       case 3:
-        agendaTelefone(nome, numero):
-        agenda.forEach((nome, numero) {
-          print('-' * 70);
-          print('Nome:$nome : Número:$numero ');
-        });
-
+        remover(dados, cadastros);
         break;
 
       case 4:
-        sair = true;
-        print('Programa encerrado! ');
+        if (cadastros.isEmpty) {
+          print('');
+          print('Não contem nenhum Usuario! ');
+          print('');
+          break;
+        }
+        dynamic usuarioEncontrado = consultarNome(cadastros);
+        if (usuarioEncontrado != null) {
+          print('');
+          print('Usuário encontrado: $usuarioEncontrado');
+          print('');
+        } else {
+          print('Usuário não encontrado.');
+        }
 
+        break;
+      case 0:
+        sair = true;
+        print('''
+⠀⠀⠀⠀⢀⣠⠤⡶⣲⢺⣴⣶⢭⣉⢲⣀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⡾⢵⣶⣿⣿⣿⣾⣷⣳⣿⣷⣵⣈⠷⢤⡀⠀⠀⠀⠀⠀
+⠀⠀⠘⢾⣿⡿⠿⠿⠿⠿⠿⠿⢿⡿⣿⣿⣿⣾⣾⣦⠀⠀⠀⠀
+⠀⠀⣠⡋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⢿⣧⠀⠀⠀
+⠀⣰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣳⢮⣧⠀⠀
+⢠⣧⠇⡠⠄⣤⣤⣄⡀⠀⠀⣀⣤⣄⣤⣀⠀⠀⣿⣿⣿⣯⣇⠀
+⠈⣿⠀⢀⣶⣾⣿⣿⠁⠀⢸⣿⣿⣿⣧⣌⣥⠀⠘⣿⣿⣿⣿⠀
+⢀⣿⠀⠈⠁⠀⠀⠁⠀⠀⠀⠉⠉⠭⠽⠿⠻⠁⠀⣿⣿⣿⡏⠀
+⡏⠆⠀⠀⠀⠀⠀⠀⡀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠟⢋⣿⣆
+⡎⠀⠀⢀⡴⠂⠈⠉⠻⠿⠿⠛⣀⢲⣤⣄⣀⠀⠀⠈⠘⣏⢹⡿
+⠱⡄⠘⢻⣳⣤⡶⠖⠒⠶⠶⢶⣿⣷⣿⣿⣿⣟⠀⠀⠄⠠⣰⠃
+⠀⢹⠀⠀⠀⠈⠓⠒⠒⠒⠒⠒⠛⠁⢨⣼⣿⣿⡀⣼⠖⠛⠁⠀
+⠀⠘⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⢁⠀⠀⠀⠀⠀
+⠀⠀⢸⠀⠀⠀⢀⣀⣀⣀⣠⣤⣶⣿⣿⣿⡿⣁⡎⢸⠀⠀⠀⠀
+⠀⠀⢸⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠸⠀⠀⠀⠀
+⠀⠀⢸⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿::::⣿⡄⠀⡇
+⠀⢀⣼⠀⠀⠀⠀⠀⠈⢹⣿⣿⣿⡟⣿⣿⣿⣟⡁⠀⢿⣷⡄⠀
+⠀⣸⣿⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣝⣿⣿⡍⠁⠀⢸⣿⣷⠀
+⠀⣿⣿⡀⠀⠀⠀⠀⠀⢐⣿⣿⣿⣿⣿⣿⣯⠁⠀⠀⢸⣿⣿⠀
+⠀⢿⢿⣿⣄⠀⠀⠀⠀⢼⣿⣿⣿⣿⣿⣿⡯⠀⢠⢒⣿⣿⡏⠀
+⠀⠈⢮⡻⣿⣷⣀⠀⢀⢸⣿⣿⣟⣿⣿⠿⠒⣀⣤⣿⣿⠏⠀⠀
+⠀⠀⠀⠙⠺⣿⣿⣿⣾⣾⣿⣭⣭⣭⣷⣾⣿⣿⣿⠟⠁⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠿⠿⠟⠛⠉⠁⠀⠀⠀⠀⠀
+​​
+⚫ SIIIIIIIIIIIIIR VOCÊ SAIU DO PROGRAMA! ​​⚫
+''');
         break;
 
       default:
-        print('Opção ínvalida ');
+        print('Opção ínvalida! ');
         break;
     }
   }
