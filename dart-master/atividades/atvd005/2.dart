@@ -7,7 +7,9 @@ Map<var, String> musicas = {};
 // Função que realiza o cadastro de um usuário.
 void cadastroMusicas(nome, cantor, ano) {
   // Adicionando os dados do usuário ao Map.
-  musicas[nome] = {'Cantor': cantor, 'Lançamento': ano} as String;
+  musicas[nome] = {
+'Cantor': cantor, 
+'Lançamento': ano};
 
   // Exibindo as informações do usuário cadastrado.
   print('');
